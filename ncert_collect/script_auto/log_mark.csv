@@ -1,0 +1,17 @@
+--2022-11-18 10:27:28--  https://docs.google.com/spreadsheets/d/1yx7iYVfK_Xuua1v_W7R4UHRJ_rW-1u1sPxXXEtWxIhU/export?format=csv&gid=0
+Resolving docs.google.com (docs.google.com)... 142.250.183.206, 2404:6800:4009:826::200e
+Connecting to docs.google.com (docs.google.com)|142.250.183.206|:443... connected.
+HTTP request sent, awaiting response... 307 Temporary Redirect
+Location: https://doc-04-2o-sheets.googleusercontent.com/export/3sm34aofsvmt5ehut1q6bddr3o/l8rsb4fb05jpacqdlrakuh78bo/1668747445000/117502207887004340013/*/1yx7iYVfK_Xuua1v_W7R4UHRJ_rW-1u1sPxXXEtWxIhU?format=csv&gid=0 [following]
+Warning: wildcards not supported in HTTP.
+--2022-11-18 10:27:29--  https://doc-04-2o-sheets.googleusercontent.com/export/3sm34aofsvmt5ehut1q6bddr3o/l8rsb4fb05jpacqdlrakuh78bo/1668747445000/117502207887004340013/*/1yx7iYVfK_Xuua1v_W7R4UHRJ_rW-1u1sPxXXEtWxIhU?format=csv&gid=0
+Resolving doc-04-2o-sheets.googleusercontent.com (doc-04-2o-sheets.googleusercontent.com)... 142.250.192.33, 2404:6800:4009:828::2001
+Connecting to doc-04-2o-sheets.googleusercontent.com (doc-04-2o-sheets.googleusercontent.com)|142.250.192.33|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/csv]
+Saving to: ‘marks.csv’
+
+     0K .......                                                45.3M=0s
+
+2022-11-18 10:27:30 (45.3 MB/s) - ‘marks.csv’ saved [8091]
+
