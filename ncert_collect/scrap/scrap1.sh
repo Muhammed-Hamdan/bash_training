@@ -11,26 +11,63 @@ extract_dirname_githubpage() {
 	echo $dirname
 }
 
+check_completion_status() {
+	if [ $(echo $1 | cut -d, -f$2) -eq 5 ]
+	then
+		return 0
+	else
+		return 1
+	fi
+}
+
 process_record() {
 	id=$(echo $1 | cut -d, -f$idcol)
-	mkdir $idcol
-	cd $idcol
+	mkdir $id
+	cd $id
 	link=$(echo $1 | cut -d, -f$linkcol)
 	dirmat=$(extract_dirname_githubpage $link matrix)
 	dirline=$(extract_dirname_githubpage $link/tree/main/$dirmat line)
-	svn co $link/trunk/$dirmat/$dirline line
+	svn co $link/trunk/$dirmat/$dirline line &> /dev/null
+	checkcol=$(( $startcol+1 ))
+	while [ $checkcol -le $endcol ]
+	do
+		if $(check_completion_status $1 $checkcol)
+		then
+			dirname=$(extract_dirname_githubpage $link/tree/main/$dirmat circle)
+			svn co $link/trunk/$dirmat/$dircircle circle &> /dev/null
+			checkcol=$(( $checkcol+1 ))
+		fi
+	done
+	dirconic=$(extract_dirname_githubpage $link/tree/main/$dirmat conic)
+	#echo $link
+	#echo $dirmat
+	#echo $dirline
+	#echo $dircircle
+	#echo $dirconic
+	svn co $link/trunk/$dirmat/$dirconic  conic &> /dev/null
+	cd ..
 }
 
-# Iterating through command output
-linkcol=4
-idcol=2
-startcol=14
-filtlist=$( awk -F, -v checkcol="$startcol" '$checkcol==5 {print $0}' marks.csv )
+# Global variables
+#linkcol=4
+#idcol=2
+#startcol=14
+#endcol=18
 
-process_record "$(grep ")"
+# Iterating through command output
+#filtlist=$( awk -F, -v checkcol="$startcol" '$checkcol==5 {print $0}' marks.csv )
+#
+#process_record "$(grep Hamdan marks.csv)"
 
 # Quote variables to preserve newline
 #while read -r item
 #do
 #	process_record "$item"
 #done < <(echo "$filtlist") 
+
+if $(test_function 40)
+then
+	echo success
+else
+	echo failure
+fi
