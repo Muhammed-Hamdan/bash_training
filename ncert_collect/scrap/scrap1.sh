@@ -4,7 +4,6 @@
 # print full dirname containing keyword
 extract_dirname_githubpage() {
 	curl $1 -o extract_temp.txt &> /dev/null  
-	#curl $1 -o extract_temp.txt
 	dirname=$( grep $2 extract_temp.txt )
 	dirname=${dirname##*title=\"}
 	dirname=${dirname%%\"*}
@@ -13,15 +12,25 @@ extract_dirname_githubpage() {
 }
 
 process_record() {
-	echo $1
-	#link=$(echo $1 | cut -d, -f4)
-	#echo $link
+	id=$(echo $1 | cut -d, -f$idcol)
+	mkdir $idcol
+	cd $idcol
+	link=$(echo $1 | cut -d, -f$linkcol)
+	dirmat=$(extract_dirname_githubpage $link matrix)
+	dirline=$(extract_dirname_githubpage $link/tree/main/$dirmat line)
+	svn co $link/trunk/$dirmat/$dirline line
 }
 
 # Iterating through command output
-mylist=$( awk -F, '$14==5 {print $3}' marks.csv )
-echo $mylist
-#for item in $mylist
+linkcol=4
+idcol=2
+startcol=14
+filtlist=$( awk -F, -v checkcol="$startcol" '$checkcol==5 {print $0}' marks.csv )
+
+process_record "$(grep ")"
+
+# Quote variables to preserve newline
+#while read -r item
 #do
-#	echo $item
-#done
+#	process_record "$item"
+#done < <(echo "$filtlist") 
